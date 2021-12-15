@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  s1:
+    build:
+      context: .
+      dockerfile: dockerfile-server
+    image: 
+      server
+    ports:
+      - 3000:3000
+    networks:
+      - my-net
+    command: 
+      node server.js
+
+
+  c1:
+    build:
+      context: .
+      dockerfile: dockerfile-client
+    image: 
+      client
+    networks:
+      - my-net
+    depends_on:
+      - "s1"  
+    command: 
+      node client.js
+
+
+networks:
+  my-net:
+    external: false
+    name: n1
+
+
+
+
+
+
+
